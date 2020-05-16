@@ -1,0 +1,3 @@
+export const GET_LESSONS = 'GET_LESSONS';
+
+export const LESSONS_LOADING = "LESSONS_LOADING";
