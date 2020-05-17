@@ -37,6 +37,7 @@ class lessons extends Component {
             { Lessons }
           </Grid>
         </div>
+        <p className="warning">(All lessons are pointing to same lesson for now)</p>
       </>
     )
   }

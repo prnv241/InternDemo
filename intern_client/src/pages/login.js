@@ -14,7 +14,7 @@ const styles = {
     padding: '40px',
     borderRadius: '20px',
     backgroundColor: '#fff',
-    boxShadow: '0px 0px 2px 2px #F0F0F0'
+    boxShadow: '0px 0px 5px 5px #F0F0F0'
   },
   image: {
     margin: '20px auto 0px auto',

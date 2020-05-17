@@ -32,10 +32,9 @@ const styles = {
 
 function LessonCard(props) {
   const { classes } = props;
-  let link = `/lessons/${props.lesson.lessonId}`;
   return (
     <Grid item sm className="mt-4">
-      <Link to={link} style={{textDecoration: 'none'}} >
+      <Link to="/lessons/pNwhvMyzhyfAgkoe1HhD" style={{textDecoration: 'none'}} >
         <div className={classes.cardstyles} style={{background: props.back}}>
           <Typography variant="body2" className={classes.heading}>
             {props.lesson.lessonName}

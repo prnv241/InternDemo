@@ -3,7 +3,8 @@ import * as ActionTypes from '../types';
 const initialState = {
   lessons: [],
   lesson: {},
-  loading: false
+  sloading: true,
+  loading: true,
 };
 
 export default function(state = initialState, action) {
@@ -12,12 +13,23 @@ export default function(state = initialState, action) {
       return {
         ...state,
         lessons: action.payload,
-        loading: false,
+        sloading: false,
       }
     case ActionTypes.LESSONS_LOADING:
       return{
         ...state,
+        sloading: true
+      }
+    case ActionTypes.LESSON_LOADING:
+      return{
+        ...state,
         loading: true
+      }
+    case ActionTypes.GET_LESSON:
+      return {
+        ...state,
+        lesson: action.payload,
+        loading: false
       }
     default :
       return state;
