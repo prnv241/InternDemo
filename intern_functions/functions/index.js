@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
-const { db } = require('./util/admin');
-const { getLessonsInfo } = require('./handlers/lessons');
+const { getLessonsInfo, getLesson } = require('./handlers/lessons');
 
 const express = require('express');
 const app = express();
@@ -16,7 +15,7 @@ app.use((req, res, next) => {
 
 app.get('/lessons', getLessonsInfo);
 
-
+app.get('/lessons/:lessonId', getLesson);
 
 
 
