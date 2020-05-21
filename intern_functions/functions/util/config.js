@@ -1,4 +1,4 @@
-const firebaseConfig = {
+module.exports = {
   apiKey: "AIzaSyDDusgMTr2Vy_XnlgIHBJZvdSMdExARv-E",
   authDomain: "interndemo-25232.firebaseapp.com",
   databaseURL: "https://interndemo-25232.firebaseio.com",
@@ -8,3 +8,4 @@ const firebaseConfig = {
   appId: "1:21827557452:web:3cf9709e3b28cbfd717ce9",
   measurementId: "G-CC09BCBF74"
 };
+
