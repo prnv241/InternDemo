@@ -6,6 +6,7 @@ import { submitQuiz } from '../redux/actions/lessonActions';
 import { withRouter } from "react-router-dom"
 import QuizCard from '../components/QuizCard';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../components/Loading';
  
 const styles = {
   screen: {
@@ -47,6 +48,7 @@ export class QuizModule extends Component {
     started: false,
     quizAns: [],
   }
+
   setans = (id,ans) => {
     var ansobj = {
       id: id,
@@ -99,9 +101,8 @@ export class QuizModule extends Component {
   }
   render() {
     const { minutes, seconds, started } = this.state;
-    const { classes, lessons: { rloading } } = this.props;
+    const { classes, lessons: { rloading, mloading } } = this.props;
     const { data, chapter } = this.props.module;
-    let ref = this.props.match.params.ref;
     let time = !started ? (
       <span style={{color: 'red', fontSize: '1.2rem'}}>Times up!</span>
     ) : (
@@ -109,9 +110,12 @@ export class QuizModule extends Component {
     );
     let button = ( <Button variant="contained" color="primary" className="buttons" style={{marginTop: 0}} onClick={this.startTimer}>Start Test</Button> )
     let timerMarkup = started === true || started === null ? time : button;
-    let quizMarkup = data.questions.map((question) => <QuizCard key={question.id} setans={this.setans} question={question}/>)
     return (
-      <div className={classes.screen}>
+      <>
+      { mloading ? (
+        <Loading />
+      ) : (
+        <div className={classes.screen}>
         <div className={classes.upperbox}>
           <Typography className={classes.chapname}>{chapter.chapName}
             <span className={classes.timer}>
@@ -127,10 +131,12 @@ export class QuizModule extends Component {
         </div>
         { started === false || started === null ? null : (
           <div className={classes.quizbox} >
-            {quizMarkup}
+            {data.questions.map((question) => <QuizCard key={question.id} setans={this.setans} question={question}/>)}
           </div>
         )}
-      </div>
+      </div> 
+      )}
+      </>
     )
   }
 }

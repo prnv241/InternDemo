@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 import LessonCard from '../components/LessonCard';
 import { connect } from 'react-redux';
 import { getLessonsInfo } from '../redux/actions/lessonActions';
+import Loading from '../components/Loading';
 
 const mapStateToProps = (state) => ({
   lessons: state.lessons
@@ -28,7 +29,7 @@ class lessons extends Component {
       "transparent linear-gradient(125deg, #FF6200 0%, #FD9346 100%) 0% 0% no-repeat padding-box",
       "transparent linear-gradient(125deg, #2375D3 0%, #67D0E8 100%) 0% 0% no-repeat padding-box"
     ]
-    let Lessons = this.props.lessons.lessons.map((lesson,index) => <LessonCard key={lesson.lessonId} lesson={lesson} back={colorGrads[index]}/>)
+    let Lessons = this.props.lessons.sloading ? (<Loading />) : (this.props.lessons.lessons.map((lesson,index) => <LessonCard key={lesson.lessonId} lesson={lesson} back={colorGrads[index]}/>))
     return (
       <>
         <Navbar />

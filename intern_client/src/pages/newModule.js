@@ -6,7 +6,6 @@ import { Typography, TextField, Button, IconButton } from '@material-ui/core'
 import { uploadFile, addModule, setDefault } from '../redux/actions/lessonActions';
 import AddIcon from '@material-ui/icons/Add';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Redirect } from 'react-router-dom'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 
 const styles = {
@@ -81,7 +80,7 @@ export class newModule extends Component {
     const { classes, lessons: {upload} } = this.props;
     if(upload === false) {
       this.props.setDefault();
-      return <Redirect to="/lessons/pNwhvMyzhyfAgkoe1HhD"/>
+      this.props.history.goBack();
     }
     return (
       <>
@@ -106,7 +105,7 @@ export class newModule extends Component {
                 </IconButton>
               </Typography>
               <Button variant="contained" color="primary" disabled={upload} className={classes.button} onClick={this.handleSubmit}>{upload ? (<CircularProgress size="1.6rem" />) : <span>Submit</span>}</Button>
-              <br />
+              <p style={{color: 'red', textAlign: 'center', paddingTop: '40', fontSize: '0.8rem'}}>(Use small sized mp4/avi clips)</p>
             </form>
           </div>
         </div>

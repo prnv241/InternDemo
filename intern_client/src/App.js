@@ -14,6 +14,7 @@ import showLesson from './pages/showLesson';
 import moduleShow from './pages/moduleShow';
 import newModule from './pages/newModule';
 import quizres from './pages/quizres';
+import showAssign from './pages/showAssign';
 
 axios.defaults.baseURL = 'https://us-central1-interndemo-25232.cloudfunctions.net/api';
 
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/live" component={live} />
           <Route exact path="/module/quizes/:ref/result" component={quizres} />
           <Route exact path="/lessons/:lessonId" component={showLesson} />
+          <Route exact path="/assignments/:assgnId" component={showAssign} />
           <Route exact path="/module/new/:chapId" component={newModule} />
           <Route exact path="/module/:type/:chapId/:ref" component={moduleShow} />
           <Redirect to="/login"/>

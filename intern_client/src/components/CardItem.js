@@ -52,7 +52,7 @@ function CardItem(props) {
             <Typography className={classes.title} color="textSecondary" gutterBottom>
               {type} <span className={classes.tick}>{ data.complited ? (<CheckCircleIcon style={{fill: '#00cc33', height:20, width:20}} />) : (<FiberManualRecordIcon style={{fill: '#f5f5f5'}}/>) }</span>
             </Typography>
-            <img src={Img} className={classes.image} />
+            <img alt="logo" src={Img} className={classes.image} />
             <Typography className={classes.pos}>
               {data.name}
             </Typography>

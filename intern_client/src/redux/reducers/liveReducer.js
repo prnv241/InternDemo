@@ -1,9 +1,9 @@
-import * as ActionTypes from '../types';
+
 
 const initialState = {
   liveStreams: [],
   liveStream: {},
-  loading: false
+  loading: false 
 };
 
 export default function(state = initialState, action) {

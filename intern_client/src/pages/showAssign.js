@@ -2,29 +2,29 @@ import React, { Component } from 'react'
 import Navbar from "../components/Navbar";
 import JumboTitle from '../components/JumboTitle';
 import { connect } from 'react-redux';
-import { getLesson } from '../redux/actions/lessonActions';
+import { getAssgn } from '../redux/actions/assgnActions';
 import ChapterSlide from '../components/ChapterSlide';
 import Loading from '../components/Loading';
 
 const mapStateToProps = (state) => ({
-  lessons: state.lessons,
+  assignments: state.assignments,
 })
 
 const mapDispatchToProps = {
-  getLesson, 
+  getAssgn, 
 }
 
-export class showLesson extends Component {
+export class showAssign extends Component {
   componentDidMount() {
-    this.props.getLesson(this.props.match.params.lessonId);
+    this.props.getAssgn(this.props.match.params.assgnId);
   }
   render() {
-    const { lesson , loading } = this.props.lessons;
+    const { assignment , loading: { ploading } } = this.props.assignments;
 
-    let chaptersMarkup = !loading ? (
+    let chaptersMarkup = !ploading ? (
       <>
-        <JumboTitle title={lesson.metadata.lessonName} />
-        {lesson.chapters.map((chap) => 
+        <JumboTitle title={assignment.metadata.lessonName} />
+        {assignment.chapters.map((chap) => 
           <ChapterSlide key={chap.chapNo} chap={chap} />
         )}
       </>
@@ -35,10 +35,10 @@ export class showLesson extends Component {
       <>
         <Navbar />
         {chaptersMarkup}
-        <p className="warning">(Modules can be added to all chapters by clicking on Add icon)</p>
+        <p className="warning">(This is exactly same as lessons)</p>
       </>
     )
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(showLesson)
+export default connect(mapStateToProps,mapDispatchToProps)(showAssign)

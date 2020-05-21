@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import Navbar from '../components/Navbar';
 import { Grid, Typography, Button } from '@material-ui/core';
 import ChapterSlide from '../components/ChapterSlide';
-import { getModule, markRead } from '../redux/actions/lessonActions';
+import { getModule, markRead, modLoading } from '../redux/actions/lessonActions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import QuizModule from '../components/QuizModule';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Loading from '../components/Loading';
 
 const styles = {
   mediabox: {
@@ -36,11 +37,12 @@ const styles = {
 
 export class moduleShow extends Component {
 
-  componentDidUpdate(prevProps) {
-    let type = this.props.match.params.type;
-    let chapId = this.props.match.params.chapId;
-    let ref = this.props.match.params.ref;
-    if (ref !== prevProps.match.params.ref) {
+  componentWillReceiveProps(newProps) {
+    if (this.props.match.params !== newProps.match.params ) {
+      console.log("Hey I updated!");
+      let type = newProps.match.params.type;
+      let chapId = newProps.match.params.chapId;
+      let ref = newProps.match.params.ref;
       this.props.getModule(type,chapId,ref);
     }
   }
@@ -60,16 +62,18 @@ export class moduleShow extends Component {
   render() {
     const { classes } = this.props;
     const { module, mloading } = this.props.lessons; 
-    let moduleMarkup = mloading ? (
-      <p>Loading...</p>
-    ) : this.props.match.params.type === 'quizes' ? (
-      <QuizModule module={module} />
-    ) : (
-      <div className="container">
+    let moduleMarkup; 
+    if( mloading ) {
+      moduleMarkup = (<Loading />)
+    } else if(this.props.match.params.type === 'quizes') {
+      console.log(module);
+      moduleMarkup = (<QuizModule module={module}/>)
+    } else if(!mloading) {
+      moduleMarkup = (<div className="container">
         <Grid container spacing={8}>
           <Grid item xs={12} md={8}>
             <div className={classes.mediabox}>
-              <iframe className={classes.frame} src={module.data.url}>
+              <iframe title="Video or Reading" className={classes.frame} src={module.data.url}>
                 Content not Suppoted by your browser!
               </iframe>
             </div>
@@ -95,8 +99,8 @@ export class moduleShow extends Component {
           </Grid>
         </Grid>
         <ChapterSlide chap={module.chapter} />
-      </div> 
-    );
+      </div>) 
+    }
     return (
       <>
         <Navbar/>
@@ -113,7 +117,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  getModule, markRead
+  getModule, markRead, modLoading
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(moduleShow))

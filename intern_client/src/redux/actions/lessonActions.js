@@ -106,3 +106,7 @@ export const markRead = (type,chapId,ref) => (dispatch) => {
 export const setDefault = () => (dispatch) => {
   dispatch({ type: ActionTypes.SET_DEFAULT });
 }
+
+export const modLoading = () => (dispatch) => {
+  dispatch({ type: ActionTypes.MODULE_LOADING });
+}

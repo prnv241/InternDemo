@@ -7,7 +7,7 @@ class live extends Component {
       <>
         <Navbar />
         <div>
-          Live
+          <p className="warning">(Live streaming feature can be implimented in future)</p>
         </div>
       </>
     )

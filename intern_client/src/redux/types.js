@@ -25,3 +25,11 @@ export const RESULTS_LOADING = "RESULTS_LOADING";
 export const MARK_DONE = "MARK_DONE";
 
 export const LOADED_RESULTS = "LOADED_RESULTS";
+
+export const GET_ASSIGNMENTS = 'GET_ASSIGNMENTS';
+
+export const ASSIGNMENTS_LOADING = "ASSIGNMENTS_LOADING";
+
+export const GET_ASSGN = 'GET_ASSGN';
+
+export const ASSGN_LOADING = "ASSGN_LOADING";

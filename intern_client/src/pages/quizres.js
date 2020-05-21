@@ -5,7 +5,7 @@ import { Card, CardContent, Typography, Grid, CardActions, Button } from '@mater
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import { getResult } from '../redux/actions/lessonActions';
-import { MODULE_LOADING } from '../redux/types';
+import Loading from '../components/Loading';
 
 const styles = {
   contain: {
@@ -59,9 +59,9 @@ export class quizres extends Component {
     console.log(ploading);
     return (
       <>
-      { ploading ? (<p>MODULE_LOADING...</p>) : (
+      <Navbar />
+      { ploading ? (<Loading />) : (
         <div>
-        <Navbar />
         <Grid container>
           <Grid item md={3}></Grid>
           <Grid item md={6}>
@@ -89,6 +89,7 @@ export class quizres extends Component {
         </Grid> 
       </div>
       )}
+      <p style={{color: 'red', textAlign: 'center', fontSize: '0.8rem'}}>(Check result isn't implimented yet.)</p>
       </>
     )
   }

@@ -42,7 +42,7 @@ const login = (props) => {
   const { classes } = props;
   return (
     <div className="login-background">
-      <AppBar color="white" id="navbar-primary">
+      <AppBar color="inherit" id="navbar-primary">
         <Toolbar>
           <Typography variant="h6" noWrap>
             Demo Application
