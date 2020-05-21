@@ -20,7 +20,7 @@ exports.getLessonsInfo = (req,res) => {
       return res.json(lessons);
     })
     .catch((err) => {
-      res.status(500).json({ error: JSON.stringify(err)});
+      res.status(500).json({ error: err.message });
     });
 }
 
@@ -28,9 +28,6 @@ exports.getLesson = (req,res) => {
   let lesson = {};
   db.doc(`/lessons/${req.params.lessonId}`).get()
     .then((doc) => {
-      if(!doc.exists) {
-        return res.status(404).json({ error: 'lesson not Found!' });
-      }
       lesson.metadata = doc.data().metadata;
       lesson.lessonId = doc.id;
       lesson.chapters = [];
@@ -50,11 +47,11 @@ exports.getLesson = (req,res) => {
           return res.json(lesson);
         })
         .catch((err) => {
-          res.status(500).json({ error: JSON.stringify(err)});
+          res.status(500).json({ error: err.message });
         });
     })
     .catch((err) => {
-      res.status(500).json({ error: JSON.stringify(err)});
+      res.status(500).json({ error: err.message });
     });
 }
 
@@ -65,9 +62,6 @@ exports.getModule = (req,res) => {
   const ref = req.params.ref;
   db.doc(`/chapters/${chapId}`).get()
     .then(doc => {
-      if(!doc.exists) {
-        return res.status(404).json({ error: 'chapter not Found!' });
-      }
       module.chapter = {
         chapName: doc.data().chapName,
         chapNo: doc.data().chapNo,
@@ -82,20 +76,17 @@ exports.getModule = (req,res) => {
     .then(body => {
       body.get()
         .then(doc => {
-          if(!doc.exists) {
-            return res.status(404).json({ error: 'chapter not Found!' });
-          }
           module.data = doc.data();
           module.data.ref = doc.id;
           module.data.answers = {};
           return res.json(module);
         })
         .catch((err) => {
-          res.status(500).json({ error: JSON.stringify(err)});
+          res.status(500).json({ error: err.message });
         });
     })
     .catch((err) => {
-      res.status(500).json({ error: JSON.stringify(err)});
+      res.status(500).json({ error: err.message });
     });
 }
 
@@ -184,9 +175,6 @@ exports.checkResults = (req,res) => {
   var results = {};
   db.doc(`/quizes/${ref}`).get()
     .then(doc => {
-      if(!doc.exists) {
-        return res.status(404).json({ error: "quiz not found!" });
-      }
       var questions = doc.data().questions;
       var answers = doc.data().answers;
       var submitted = req.body.quizAns;
@@ -208,16 +196,13 @@ exports.checkResults = (req,res) => {
       body.update({complited: true})
       db.doc(`/chapters/${chapId}`).get()
         .then((chap) => {
-          if(!chap.exists) {
-            return res.status(500).json({ error: err.message });
-          }
           quiz = chap.data().quiz;
           quiz.forEach((o) =>{
             if(o.ref === ref) {
               o.complited = true;
             }
           })
-          data.update({ quiz: quiz });
+          db.doc(`/chapters/${chapId}`).update({ quiz: quiz });
           return res.json({ success: "Quiz submitted successfully! "});
         })
         .catch((err) => {
@@ -244,9 +229,6 @@ exports.markRead = (req,res) => {
         var videos;
         data.get()
         .then((chap) => {
-          if(!chap.exists) {
-            return res.status(500).json({ error: err.message });
-          }
           videos = chap.data().videos;
           videos.forEach((o) =>{
             if(o.ref === ref) {
@@ -271,9 +253,6 @@ exports.markRead = (req,res) => {
         var reading;
         data.get()
         .then((chap) => {
-          if(!chap.exists) {
-            return res.status(500).json({ error: err.message });
-          }
           reading = chap.data().reading;
           reading.forEach((o) =>{
             if(o.ref === ref) {
